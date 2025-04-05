@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
+<<<<<<< HEAD
 
+=======
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+>>>>>>> cfdf3db (Project Files)
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -18,7 +23,11 @@
             android:name=".UI.GoogleFormActivity"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
             android:name=".UI.ProfileActivity"
+=======
+            android:name=".UI.pfp"
+>>>>>>> cfdf3db (Project Files)
             android:exported="false" />
         <activity
             android:name=".UI.LiveChatActivity"

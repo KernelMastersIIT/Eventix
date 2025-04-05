@@ -155,8 +155,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun initializeLogin(userMail: String, uid : String, userType : String) {
+<<<<<<< HEAD
         if (userType == "Organizer"){
             val intent = Intent(this.context, OrganizerActivity::class.java)
+=======
+        val ctx = context ?: return
+        if (userType == "Organizer"){
+            val intent = Intent(ctx, OrganizerActivity::class.java)
+>>>>>>> cfdf3db (Project Files)
             intent.putExtra("email", userMail)
             intent.putExtra("uid", uid)
             intent.putExtra("userType", userType)
@@ -164,7 +170,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             startActivity(intent)
             requireActivity().finish()
         } else {
+<<<<<<< HEAD
             val intent = Intent(this.context, MainActivity::class.java)
+=======
+            val intent = Intent(ctx, MainActivity::class.java)
+>>>>>>> cfdf3db (Project Files)
             intent.putExtra("email", userMail)
             intent.putExtra("uid", uid)
             intent.putExtra("userType", userType)

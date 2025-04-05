@@ -13,13 +13,19 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kernel.R
 import com.google.firebase.auth.FirebaseAuth
+<<<<<<< HEAD
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+=======
+>>>>>>> cfdf3db (Project Files)
 
 class WelcomeScreen : AppCompatActivity() {
 
     private lateinit var firebaseAuth : FirebaseAuth
+<<<<<<< HEAD
     private lateinit var database : DatabaseReference
+=======
+>>>>>>> cfdf3db (Project Files)
     private lateinit var textSwitcher : TextSwitcher
     private lateinit var btnLogin: Button
     private lateinit var tvCreate: TextView
@@ -34,6 +40,7 @@ class WelcomeScreen : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+<<<<<<< HEAD
 
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().getReference("Accounts")
@@ -55,6 +62,10 @@ class WelcomeScreen : AppCompatActivity() {
     }
 
     private fun setupUI() {
+=======
+        setContentView(R.layout.activity_welcome_screen)
+
+>>>>>>> cfdf3db (Project Files)
         textSwitcher = findViewById(R.id.textSwitcher)
         btnLogin = findViewById(R.id.btnLogin)
         tvCreate = findViewById(R.id.tvCreate)
@@ -81,6 +92,11 @@ class WelcomeScreen : AppCompatActivity() {
             intent = Intent(this, SignInUp::class.java)
             startActivity(intent)
         }
+<<<<<<< HEAD
+=======
+
+        firebaseAuth = FirebaseAuth.getInstance()
+>>>>>>> cfdf3db (Project Files)
     }
 
     private fun startTextSwitching() {
@@ -92,6 +108,7 @@ class WelcomeScreen : AppCompatActivity() {
             }
         }, 0)
     }
+<<<<<<< HEAD
 
     private fun initializeLogin(userMail: String, uid : String, userType : String) {
         if (userType == "Organizer"){
@@ -112,4 +129,6 @@ class WelcomeScreen : AppCompatActivity() {
             finish()
         }
     }
+=======
+>>>>>>> cfdf3db (Project Files)
 }

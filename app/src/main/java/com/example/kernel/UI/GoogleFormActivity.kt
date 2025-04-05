@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+<<<<<<< HEAD
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kernel.Components.InputText
 import com.example.kernel.Components.SentimentApiInterface
@@ -21,6 +22,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+=======
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.kernel.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+>>>>>>> cfdf3db (Project Files)
 
 class GoogleFormActivity : AppCompatActivity() {
 
@@ -53,10 +61,14 @@ class GoogleFormActivity : AppCompatActivity() {
         tvEventDate.text = eventDate
         tvEventTime.text = eventTime
 
+<<<<<<< HEAD
         submitButton.setOnClickListener {
             submitFeedback(eventId)
             finish()
         }
+=======
+        submitButton.setOnClickListener { submitFeedback(eventId) }
+>>>>>>> cfdf3db (Project Files)
     }
 
     private fun submitFeedback(eventId: String?) {
@@ -67,6 +79,7 @@ class GoogleFormActivity : AppCompatActivity() {
             return
         }
 
+<<<<<<< HEAD
         if (eventId != null) {
             fetchSentiment(feedback,eventId)
         }
@@ -115,5 +128,17 @@ class GoogleFormActivity : AppCompatActivity() {
                 Log.e("API Error", t.message ?: "Unknown error")
             }
         })
+=======
+        // Save to Firestore
+        val feedbackData = hashMapOf(
+            "feedback" to feedback,
+            "currentUserId" to currentUserId,
+            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
+        )
+
+            db.collection("events").document("$eventId").collection("feedbacks").add(feedbackData)
+            .addOnSuccessListener { Toast.makeText(this, "Saved to Firestore", Toast.LENGTH_SHORT).show() }
+            .addOnFailureListener { e -> Log.e("Firestore", "Error saving", e) }
+>>>>>>> cfdf3db (Project Files)
     }
 }

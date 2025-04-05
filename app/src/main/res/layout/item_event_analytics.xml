@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_event"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Event Title, Date, and Time -->
+        <TextView
+            android:id="@+id/tv_event_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Event Title"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_event_datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date - Time"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="#666666"/>
+
+        <!-- Show/Hide Analytics Button -->
+        <Button
+            android:id="@+id/btn_toggle_analytics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Analytics"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="end"/>
+
+        <!-- Expandable Analytics Container -->
+        <LinearLayout
+            android:id="@+id/layout_analytics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <!-- Sentiment Stats -->
+            <TextView
+                android:id="@+id/tv_positive_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Positive: 0"/>
+
+            <TextView
+                android:id="@+id/tv_neutral_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Neutral: 0"/>
+
+            <TextView
+                android:id="@+id/tv_negative_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Negative: 0"/>
+
+            <!-- Optional: Pie Chart -->
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pie_chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
