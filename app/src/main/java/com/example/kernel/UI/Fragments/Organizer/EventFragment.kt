@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,24 +17,38 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.kernel.Components.EventData
 import com.example.kernel.R
+import com.example.kernel.UI.SignInUp
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Calendar
 
 class EventFragment : Fragment(R.layout.fragment_event) {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var btnAddEvent : Button
+    private lateinit var btnLogOut : Button
     private lateinit var database: DatabaseReference
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
         btnAddEvent = view.findViewById(R.id.btnAddEvent)
+        btnLogOut = view.findViewById(R.id.btnLogOut)
         database = FirebaseDatabase.getInstance().getReference("Events")
 
         btnAddEvent.setOnClickListener {
             showEventDialog(requireContext())
+        }
+
+        btnLogOut.setOnClickListener {
+            auth.signOut()
+            val intent = Intent(this.context, SignInUp::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 

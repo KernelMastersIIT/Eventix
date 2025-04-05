@@ -18,7 +18,7 @@
             android:name=".UI.GoogleFormActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.pfp"
+            android:name=".UI.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".UI.LiveChatActivity"

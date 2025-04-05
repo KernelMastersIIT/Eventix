@@ -17,7 +17,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 
-class pfp : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     lateinit var profileImageView: ImageView
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -35,7 +36,7 @@ class pfp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pfp)
+        setContentView(R.layout.activity_profile)
 
 
         auth = FirebaseAuth.getInstance()
@@ -45,13 +46,13 @@ class pfp : AppCompatActivity() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        val tvEmail = findViewById<TextView>(R.id.tvEmail)
+        val tvEmail = findViewById<TextView>(R.id.user_mail)
         val email = auth.currentUser?.email
 
         tvEmail.text = "Email :\n $email"
 
-        val btn = findViewById<Button>(R.id.btnx)
-        profileImageView = findViewById(R.id.profileImageView)
+        val btn = findViewById<Button>(R.id.logout_btn)
+        profileImageView = findViewById(R.id.profile_image)
 
         btn.setOnClickListener {
             auth.signOut()

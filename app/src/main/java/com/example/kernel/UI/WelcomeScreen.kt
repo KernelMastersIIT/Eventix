@@ -13,10 +13,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kernel.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class WelcomeScreen : AppCompatActivity() {
 
     private lateinit var firebaseAuth : FirebaseAuth
+    private lateinit var database : DatabaseReference
     private lateinit var textSwitcher : TextSwitcher
     private lateinit var btnLogin: Button
     private lateinit var tvCreate: TextView
@@ -31,8 +34,27 @@ class WelcomeScreen : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome_screen)
 
+        firebaseAuth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReference("Accounts")
+
+        if (firebaseAuth.currentUser != null) {
+            val userMail = firebaseAuth.currentUser!!.email
+            database.get().addOnSuccessListener { snack ->
+                for(uid in snack.children){
+                    if(uid.child("email").value.toString() == userMail){
+                        initializeLogin(userMail, uid.key.toString(), uid.child("userType").value.toString())
+                        return@addOnSuccessListener
+                    }
+                }
+            }
+        } else {
+            setContentView(R.layout.activity_welcome_screen)
+            setupUI()
+        }
+    }
+
+    private fun setupUI() {
         textSwitcher = findViewById(R.id.textSwitcher)
         btnLogin = findViewById(R.id.btnLogin)
         tvCreate = findViewById(R.id.tvCreate)
@@ -59,8 +81,6 @@ class WelcomeScreen : AppCompatActivity() {
             intent = Intent(this, SignInUp::class.java)
             startActivity(intent)
         }
-
-        firebaseAuth = FirebaseAuth.getInstance()
     }
 
     private fun startTextSwitching() {
@@ -71,5 +91,25 @@ class WelcomeScreen : AppCompatActivity() {
                 handler.postDelayed(this, 3000)
             }
         }, 0)
+    }
+
+    private fun initializeLogin(userMail: String, uid : String, userType : String) {
+        if (userType == "Organizer"){
+            val intent = Intent(this, OrganizerActivity::class.java)
+            intent.putExtra("email", userMail)
+            intent.putExtra("uid", uid)
+            intent.putExtra("userType", userType)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("email", userMail)
+            intent.putExtra("uid", uid)
+            intent.putExtra("userType", userType)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
     }
 }
