@@ -5,11 +5,22 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kernel.Components.InputText
+import com.example.kernel.Components.SentimentApiInterface
+import com.example.kernel.Components.SentimentData
 import com.example.kernel.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class GoogleFormActivity : AppCompatActivity() {
 
@@ -42,7 +53,10 @@ class GoogleFormActivity : AppCompatActivity() {
         tvEventDate.text = eventDate
         tvEventTime.text = eventTime
 
-        submitButton.setOnClickListener { submitFeedback(eventId) }
+        submitButton.setOnClickListener {
+            submitFeedback(eventId)
+            finish()
+        }
     }
 
     private fun submitFeedback(eventId: String?) {
@@ -53,15 +67,53 @@ class GoogleFormActivity : AppCompatActivity() {
             return
         }
 
-        // Save to Firestore
-        val feedbackData = hashMapOf(
-            "feedback" to feedback,
-            "currentUserId" to currentUserId,
-            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()
-        )
+        if (eventId != null) {
+            fetchSentiment(feedback,eventId)
+        }
+    }
 
-            db.collection("events").document("$eventId").collection("feedbacks").add(feedbackData)
-            .addOnSuccessListener { Toast.makeText(this, "Saved to Firestore", Toast.LENGTH_SHORT).show() }
-            .addOnFailureListener { e -> Log.e("Firestore", "Error saving", e) }
+    private fun fetchSentiment(text: String, eventId: String) {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(3, TimeUnit.MINUTES) // Increase connection timeout
+            .readTimeout(3, TimeUnit.MINUTES) // Increase read timeout
+            .writeTimeout(3, TimeUnit.MINUTES) // Increase write timeout
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://senti-api-6.onrender.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client) // Set the custom OkHttpClient
+            .build()
+
+        val api = retrofit.create(SentimentApiInterface::class.java)
+        api.analyzeText(InputText(text)).enqueue(object : Callback<SentimentData> {
+            override fun onResponse(call: Call<SentimentData>, response: Response<SentimentData>) {
+                Log.d("Api AI/ML", "Response: $response")
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    if (result != null) {
+                        Log.d("Sentiment", "SUCCESS: Sentiment: ${result.sentiment}, Alert: ${result.alert}")
+                        val sentimentMap = mapOf(
+                            "text" to text,
+                            "sentiment" to result.sentiment,
+                            "alert" to result.alert,
+                        )
+
+                        Firebase.firestore.collection("events")
+                            .document(eventId)
+                            .collection("Sentiments")
+                            .add(sentimentMap)
+                    } else {
+                        Log.e("Sentiment", "SUCCESS but empty body")
+                    }
+                } else {
+                    Log.e("Sentiment", "API Error: ${response.code()} - ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<SentimentData>, t: Throwable) {
+                Log.e("API Error", t.message ?: "Unknown error")
+            }
+        })
     }
 }
