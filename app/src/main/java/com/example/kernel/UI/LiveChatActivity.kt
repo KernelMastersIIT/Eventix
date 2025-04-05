@@ -8,8 +8,6 @@ import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
-<<<<<<< HEAD
-=======
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -21,7 +19,6 @@ import androidx.core.app.NotificationManagerCompat
 
 
 
->>>>>>> cfdf3db (Project Files)
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
@@ -50,14 +47,11 @@ class LiveChatActivity : AppCompatActivity() {
     private lateinit var sendButton: ImageButton
 
     private lateinit var eventId: String
-<<<<<<< HEAD
-=======
 
     private val CHANNEL_ID = "event_alert_channel"
     private val NOTIFICATION_ID = 1001
 
 
->>>>>>> cfdf3db (Project Files)
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: "Anonymous"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,12 +136,9 @@ class LiveChatActivity : AppCompatActivity() {
                             .document(eventId)
                             .collection("Sentiments")
                             .add(sentimentMap)
-<<<<<<< HEAD
-=======
                         if (result.alert == "alert") {
                             showAlertNotification(text)
                         }
->>>>>>> cfdf3db (Project Files)
                     } else {
                         Log.e("Sentiment", "SUCCESS but empty body")
                     }
@@ -161,9 +152,6 @@ class LiveChatActivity : AppCompatActivity() {
             }
         })
     }
-<<<<<<< HEAD
-}
-=======
     private fun showAlertNotification(message: String) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -196,7 +184,7 @@ class LiveChatActivity : AppCompatActivity() {
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification) // use a valid icon here
-            .setContentTitle("⚠️ Event Alert")
+            .setContentTitle("⚠ Event Alert")
             .setContentText("Potential harmful message: \"$message\"")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
@@ -204,8 +192,4 @@ class LiveChatActivity : AppCompatActivity() {
             notify(NOTIFICATION_ID, builder.build())
         }
     }
-
-
-
 }
->>>>>>> cfdf3db (Project Files)

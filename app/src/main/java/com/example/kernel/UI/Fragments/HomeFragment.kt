@@ -8,41 +8,26 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-<<<<<<< HEAD
-=======
 import android.widget.Toast
->>>>>>> cfdf3db (Project Files)
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kernel.Adapters.EventAdapter
-<<<<<<< HEAD
 import com.example.kernel.Components.EventData
 import com.example.kernel.R
 import com.example.kernel.UI.LiveChatActivity
 import com.example.kernel.UI.ProfileActivity
-=======
 import com.example.kernel.Components.ChatMessage
-import com.example.kernel.Components.EventData
-import com.example.kernel.R
-import com.example.kernel.UI.LiveChatActivity
-import com.example.kernel.UI.pfp
->>>>>>> cfdf3db (Project Files)
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-<<<<<<< HEAD
 import com.google.firebase.database.FirebaseDatabase
-=======
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
->>>>>>> cfdf3db (Project Files)
 
 
 class HomeFragment :  Fragment(R.layout.fragment_home)  {
@@ -84,11 +69,9 @@ class HomeFragment :  Fragment(R.layout.fragment_home)  {
                 }
             }
 
-<<<<<<< HEAD
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             eventAdapter = EventAdapter(requireContext(), eventList)
             recyclerView.adapter = eventAdapter
-=======
             context?.let { safeContext ->
                 recyclerView.layoutManager = LinearLayoutManager(safeContext)
                 eventAdapter = EventAdapter(safeContext, eventList)
@@ -101,8 +84,6 @@ class HomeFragment :  Fragment(R.layout.fragment_home)  {
                     }
                 })
             }
->>>>>>> cfdf3db (Project Files)
-
 
             auth.currentUser?.let { user ->
                 overlappingIcon?.let {
@@ -112,25 +93,16 @@ class HomeFragment :  Fragment(R.layout.fragment_home)  {
 
 
             fab.setOnClickListener {
-<<<<<<< HEAD
                 startActivity(Intent(requireContext(), ProfileActivity::class.java))
-=======
-                startActivity(Intent(requireContext(), pfp::class.java))
->>>>>>> cfdf3db (Project Files)
             }
 
             progressBar.visibility = View.GONE
-
-<<<<<<< HEAD
             eventAdapter.setOnItemClickListener(object : EventAdapter.onItemClickListener {
                 override fun onItemClicking(position: Int) {
                     val intent = Intent(requireContext(), LiveChatActivity::class.java)
                     startActivity(intent)
                 }
             })
-=======
-
->>>>>>> cfdf3db (Project Files)
         }
     }
 
