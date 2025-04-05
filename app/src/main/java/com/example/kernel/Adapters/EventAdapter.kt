@@ -6,11 +6,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kernel.Components.ChatMessage
 import com.example.kernel.Components.EventData
 import com.example.kernel.R
 import com.example.kernel.UI.GoogleFormActivity
@@ -18,7 +16,7 @@ import com.example.kernel.UI.LiveChatActivity
 
 class EventAdapter(val context: Context, private var list: ArrayList<EventData>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>(){
 
-    private lateinit var myListener: onItemClickListener
+    private lateinit var myListener: EventAdapter.onItemClickListener
 
     interface onItemClickListener {
         fun onItemClicking(position: Int)
@@ -82,9 +80,7 @@ class EventAdapter(val context: Context, private var list: ArrayList<EventData>)
             .into(holder.image)*/
     }
 
-    class EventViewHolder(itemView : View,listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
-
-
+    class EventViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
 
         var eventTitle: TextView = itemView.findViewById(R.id.tv_event_name)
         var eventDetail: TextView = itemView.findViewById(R.id.tv_event_detail)

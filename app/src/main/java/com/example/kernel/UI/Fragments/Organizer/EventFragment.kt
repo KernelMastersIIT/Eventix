@@ -37,20 +37,19 @@ class EventFragment : Fragment(R.layout.fragment_event) {
 
         auth = FirebaseAuth.getInstance()
         btnAddEvent = view.findViewById(R.id.btnAddEvent)
-        btnLogOut = view.findViewById(R.id.btnLogOut)
         database = FirebaseDatabase.getInstance().getReference("Events")
 
         btnAddEvent.setOnClickListener {
             showEventDialog(requireContext())
         }
 
-        btnLogOut.setOnClickListener {
+        /*btnLogOut.setOnClickListener {
             auth.signOut()
             val intent = Intent(this.context, SignInUp::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
-        }
+        }*/
     }
 
     private fun showEventDialog(context: Context) {
