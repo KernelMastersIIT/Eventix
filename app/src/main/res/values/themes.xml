@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Kernel" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="backgroundColor">@color/white</item>
+        <item name="textBackground">@color/black</item>
+        <item name="textAppearanceBody1">@color/ass</item>
+    </style>
+
+    <style name="Theme.Kernel" parent="Base.Theme.Kernel" />
+</resources>

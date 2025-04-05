@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:id="@+id/et_event_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Title"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/et_hashtags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hashtags (comma separated)"
+            android:inputType="text"/>
+
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:minLines="3"/>
+
+        <EditText
+            android:id="@+id/et_venue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Venue"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/btn_pick_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date"/>
+
+        <TextView
+            android:id="@+id/tv_selected_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date: Not Selected"
+            android:textSize="14sp"
+            android:paddingTop="4dp"/>
+
+        <Button
+            android:id="@+id/btn_pick_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Time"/>
+
+        <TextView
+            android:id="@+id/tv_selected_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time: Not Selected"
+            android:textSize="14sp"
+            android:paddingTop="4dp"/>
+
+        <EditText
+            android:id="@+id/et_post_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="LinkedIn Post Link"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+</LinearLayout>
